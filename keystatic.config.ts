@@ -7,7 +7,7 @@ export default config({
     ? {
         kind: 'github',
         repo: {
-          owner: process.env.NEXT_PUBLIC_GITHUB_OWNER ?? 'GITHUB_OWNER',
+          owner: process.env.NEXT_PUBLIC_GITHUB_OWNER ?? 'williamkhouri1980',
           name:  process.env.NEXT_PUBLIC_GITHUB_REPO  ?? 'siteroberta',
         },
         branchPrefix: 'cms/',
