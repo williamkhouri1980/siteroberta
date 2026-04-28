@@ -68,6 +68,7 @@ export type HeroData = {
   corpo:         string
   ctaPrimario:   string
   ctaSecundario: string
+  fotoUrl?:      string
 }
 
 export async function getHero(): Promise<HeroData> {
@@ -77,6 +78,7 @@ export async function getHero(): Promise<HeroData> {
     corpo:         'Diagnóstico preciso para tosse crônica, falta de ar, asma e hipertensão pulmonar.',
     ctaPrimario:   'Agendar consulta',
     ctaSecundario: 'Como funciona',
+    fotoUrl:       '',
   })
 }
 

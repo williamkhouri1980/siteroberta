@@ -10,13 +10,14 @@ export default async function Hero() {
     <section id="hero" aria-label="Apresentação">
       <div className="hero-photo hero-photo-wrap">
         <Image
-          src="/roberta4-cropped.jpg"
+          src={hero.fotoUrl || '/roberta4-cropped.jpg'}
           alt="Dra. Roberta Pulcheri Ramos, pneumologista em São Paulo"
           width={2177}
           height={3456}
           priority
           quality={85}
           sizes="(max-width: 1024px) 100vw, 44vw"
+          unoptimized={Boolean(hero.fotoUrl)}
         />
       </div>
 
