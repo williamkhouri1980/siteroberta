@@ -1,11 +1,15 @@
-import Nav from '@/components/Nav'
-import Hero from '@/components/Hero'
-import Sobre from '@/components/Sobre'
-import Especialidades from '@/components/Especialidades'
-import Atendimento from '@/components/Atendimento'
-import Faq from '@/components/Faq'
-import Agendar from '@/components/Agendar'
-import Footer from '@/components/Footer'
+import Nav             from '@/components/Nav'
+import Hero            from '@/components/Hero'
+import QuandoConsultar from '@/components/QuandoConsultar'
+import Sobre           from '@/components/Sobre'
+import Condicoes       from '@/components/Condicoes'
+import ComoFunciona    from '@/components/ComoFunciona'
+import Reconhecimento  from '@/components/Reconhecimento'
+import Localizacao     from '@/components/Localizacao'
+import Faq             from '@/components/Faq'
+import Agendar         from '@/components/Agendar'
+import Footer          from '@/components/Footer'
+import WhatsAppButton  from '@/components/WhatsAppButton'
 
 export default function Home() {
   return (
@@ -13,13 +17,17 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
+        <QuandoConsultar />
         <Sobre />
-        <Especialidades />
-        <Atendimento />
+        <Condicoes />
+        <ComoFunciona />
+        <Reconhecimento />
+        <Localizacao />
         <Faq />
         <Agendar />
       </main>
       <Footer />
+      <WhatsAppButton />
     </>
   )
 }

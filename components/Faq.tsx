@@ -1,50 +1,69 @@
 const faqs = [
   {
-    question: 'O que é hipertensão pulmonar e como é tratada?',
+    question: 'Quando devo consultar um pneumologista?',
     answer:
-      'Hipertensão pulmonar é o aumento da pressão nas artérias dos pulmões, podendo causar falta de ar, fadiga e limitação funcional progressiva. A Dra. Roberta Pulcheri Ramos especializa-se no diagnóstico, estratificação e tratamento de todas as formas de HP — incluindo hipertensão arterial pulmonar (HAP), HP tromboembólica crônica e casos de difícil controle.',
+      'Consulte um pneumologista se você tiver: tosse que persiste por mais de 3 semanas; falta de ar ao fazer esforços simples como subir escadas; chiado ou aperto no peito; infecções pulmonares frequentes (mais de 2 por ano); nódulo identificado em tomografia do tórax; diagnóstico de asma, DPOC ou hipertensão pulmonar sem acompanhamento regular.',
   },
   {
-    question: 'O que é o teste cardiopulmonar de exercício (CPET)?',
+    question: 'Tosse por mais de 3 semanas é sinal de alerta?',
     answer:
-      'O teste cardiopulmonar de exercício (CPET) avalia simultaneamente as respostas cardiovascular, respiratória e metabólica ao esforço físico. Permite identificar a causa exata da dispneia ao esforço e alterações hemodinâmicas que não aparecem em exames de repouso — como espirometria ou ecocardiograma padrão. É uma ferramenta essencial no diagnóstico de hipertensão pulmonar e limitação funcional inexplicada.',
+      'Sim. Tosse que persiste por mais de 3 semanas é chamada de tosse subaguda, e acima de 8 semanas é considerada tosse crônica. Ambas exigem investigação especializada. As causas mais comuns em adultos incluem gotejamento pós-nasal, asma, refluxo gastroesofágico e, com menor frequência, doenças pulmonares estruturais. A investigação correta evita meses de tratamento empírico incorreto.',
   },
   {
-    question: 'A Dra. Roberta atende pacientes internacionais por telemedicina?',
+    question: 'O que causa falta de ar ao subir escadas ou caminhar rápido?',
     answer:
-      'Sim. A Dra. Roberta Pulcheri Ramos oferece consultas por telemedicina para pacientes em qualquer parte do mundo, em português, inglês ou espanhol. O atendimento é indicado para segunda opinião, revisão de diagnóstico e orientação terapêutica, com duração de 60 minutos. É necessário enviar exames e histórico clínico com antecedência.',
+      'A falta de ar ao esforço (dispneia de esforço) pode ter origem pulmonar, cardíaca ou ser consequência de descondicionamento físico. Entre as causas pulmonares estão asma, DPOC, hipertensão pulmonar e doenças pulmonares intersticiais. O teste cardiopulmonar de exercício (CPET) é o exame mais preciso para identificar a causa — ele avalia o pulmão, o coração e os músculos enquanto o corpo trabalha de verdade.',
   },
   {
-    question: 'Quais são as especialidades da Dra. Roberta Pulcheri Ramos?',
+    question: 'Qual a diferença entre asma e DPOC?',
     answer:
-      'A Dra. Roberta Pulcheri Ramos é pneumologista com formação até pós-doutorado, com atuação focada em: (1) Hipertensão Pulmonar — diagnóstico, estratificação e tratamento; (2) Fisiologia do Exercício — avaliação pelo teste cardiopulmonar (CPET); (3) Segunda Opinião — para casos com diagnóstico inconclusivo ou sintomas inexplicados; e (4) Terapia Intensiva. Seu diferencial é integrar a avaliação do pulmão em movimento na prática clínica diária.',
+      'Asma é uma doença inflamatória das vias aéreas com obstrução variável e geralmente reversível. Tende a se manifestar desde a infância ou adolescência e responde bem a broncodilatadores e corticoides inalatórios. DPOC (Doença Pulmonar Obstrutiva Crônica) é uma obstrução progressiva e irreversível ao fluxo de ar, causada principalmente pelo tabagismo. Afeta adultos acima de 40 anos e exige tratamento diferente. Ambas podem coexistir no mesmo paciente — quadro chamado de síndrome ACO.',
   },
   {
-    question: 'Como agendar uma consulta com a Dra. Roberta Pulcheri Ramos?',
+    question: 'Como é uma consulta de pneumologia com a Dra. Roberta?',
     answer:
-      'Para agendar uma consulta, entre em contato pelo e-mail contato@robertaramos.med.br. Atendimentos presenciais são realizados no Brasil. Para pacientes em outros países, a telemedicina está disponível em português, inglês e espanhol. Consultas iniciais têm duração de 60 a 90 minutos.',
+      'A primeira consulta dura entre 60 e 90 minutos. O histórico clínico é revisado completamente, incluindo todos os exames anteriores, medicamentos em uso e impacto dos sintomas na vida diária. Quando indicado, são solicitados exames complementares — incluindo o teste cardiopulmonar de exercício (CPET), que avalia o pulmão sob esforço. Ao final, o paciente recebe explicação clara do que foi identificado e qual é o plano de tratamento.',
+  },
+  {
+    question: 'A Dra. Roberta realiza consultas por telemedicina?',
+    answer:
+      'Sim. A Dra. Roberta Pulcheri Ramos oferece consultas por telemedicina para pacientes em qualquer parte do Brasil e do mundo, em português, inglês ou espanhol. A telemedicina é indicada especialmente para segunda opinião, revisão de diagnóstico e acompanhamento de casos já investigados. É necessário enviar exames e histórico clínico com antecedência.',
+  },
+  {
+    question: 'O que é hipertensão pulmonar e quais os sintomas?',
+    answer:
+      'Hipertensão pulmonar é o aumento da pressão nas artérias que levam sangue dos pulmões ao coração. Os sintomas principais são: falta de ar ao esforço (que piora progressivamente), fadiga, palpitações e, nos casos mais avançados, inchaço nas pernas e síncope (desmaio). É uma doença que frequentemente é confundida com asma ou sedentarismo, e o diagnóstico leva em média 2 anos para ser feito. A Dra. Roberta é especialista nessa área.',
+  },
+  {
+    question: 'O que é o teste cardiopulmonar de exercício (CPET) e quando é indicado?',
+    answer:
+      'O teste cardiopulmonar de exercício (CPET) é um exame que avalia simultaneamente o coração, os pulmões e os músculos durante esforço físico em bicicleta ergométrica ou esteira. É o único exame capaz de identificar o sistema que está limitando a capacidade ao exercício. É indicado para investigar dispneia ao esforço sem causa definida, avaliar a gravidade da hipertensão pulmonar, acompanhar doenças pulmonares e cardíacas, e nos casos em que os exames de repouso estão normais mas o paciente continua com sintomas.',
   },
 ]
 
 export default function Faq() {
   return (
-    <section id="faq">
-      <div className="faq-grid">
-        <div>
-          <span className="label">Perguntas frequentes</span>
-          <h2 className="faq-heading">
-            O que você<br />
-            precisa saber<br />
-            antes de consultar.
-          </h2>
-        </div>
-        <div className="faq-list">
-          {faqs.map((faq, i) => (
-            <div key={i} className="faq-item">
-              <h3 className="faq-question">{faq.question}</h3>
-              <p className="faq-answer">{faq.answer}</p>
-            </div>
-          ))}
+    <section id="faq" aria-labelledby="faq-heading">
+      <div className="section-inner">
+        <div className="faq-grid">
+          <div>
+            <span className="label">Perguntas frequentes</span>
+            <h2 id="faq-heading" className="faq-heading">
+              O que os pacientes precisam saber antes de consultar.
+            </h2>
+            <p className="faq-intro">
+              Respostas diretas para as dúvidas mais comuns sobre pneumologia,
+              doenças respiratórias e como funciona o atendimento.
+            </p>
+          </div>
+          <div className="faq-list">
+            {faqs.map((faq, i) => (
+              <div key={i} className="faq-item">
+                <h3 className="faq-question">{faq.question}</h3>
+                <p className="faq-answer">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
