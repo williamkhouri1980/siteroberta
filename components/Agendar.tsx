@@ -1,20 +1,19 @@
-import { WHATSAPP_URL, EMAIL } from '@/lib/constants'
+import { getCta, getConfig } from '@/lib/content'
+import { WHATSAPP_MESSAGE } from '@/lib/constants'
 
-export default function Agendar() {
+export default async function Agendar() {
+  const [cta, config] = await Promise.all([getCta(), getConfig()])
+  const waUrl = `https://wa.me/${config.whatsapp}?text=${WHATSAPP_MESSAGE}`
+
   return (
     <section id="agendar" aria-labelledby="ag-heading">
       <span className="cta-label">Agendar consulta</span>
-      <h2 id="ag-heading" className="cta-heading">
-        Pronto para ter uma resposta fundamentada?
-      </h2>
-      <p className="cta-sub">
-        Para casos complexos que merecem atenção especializada — presencialmente em
-        São Paulo ou por telemedicina, em qualquer parte do mundo.
-      </p>
+      <h2 id="ag-heading" className="cta-heading">{cta.heading}</h2>
+      {cta.subtitulo && <p className="cta-sub">{cta.subtitulo}</p>}
       <div className="cta-btns">
         <a
           className="btn-whatsapp btn-whatsapp-lg"
-          href={WHATSAPP_URL}
+          href={waUrl}
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -23,7 +22,7 @@ export default function Agendar() {
           </svg>
           Agendar pelo WhatsApp
         </a>
-        <a className="btn-inv-ghost" href={`mailto:${EMAIL}`}>
+        <a className="btn-inv-ghost" href={`mailto:${config.email}`}>
           Enviar e-mail &rarr;
         </a>
       </div>

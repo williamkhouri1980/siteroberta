@@ -1,6 +1,10 @@
-import { WHATSAPP_URL, EMAIL, ADDRESS, MAPS_EMBED_URL } from '@/lib/constants'
+import { getEndereco, getConfig } from '@/lib/content'
+import { WHATSAPP_MESSAGE } from '@/lib/constants'
 
-export default function Localizacao() {
+export default async function Localizacao() {
+  const [endereco, config] = await Promise.all([getEndereco(), getConfig()])
+  const waUrl = `https://wa.me/${config.whatsapp}?text=${WHATSAPP_MESSAGE}`
+
   return (
     <section id="localizacao" aria-labelledby="loc-heading">
       <div className="section-inner">
@@ -14,8 +18,8 @@ export default function Localizacao() {
             <div className="loc-bloco">
               <span className="atend-label">Consultório — São Paulo/SP</span>
               <p className="loc-endereco">
-                {ADDRESS.neighborhood}<br />
-                {ADDRESS.city}, {ADDRESS.state}
+                {endereco.bairro}<br />
+                {endereco.cidade}, {endereco.estado}
               </p>
               <p className="loc-nota">
                 O endereço completo e instruções de acesso são enviados após o
@@ -35,7 +39,7 @@ export default function Localizacao() {
             <div className="loc-horarios">
               <div className="atend-detail">
                 <span className="atend-detail-key">Seg – Sex</span>
-                <span className="atend-detail-val">08h – 18h</span>
+                <span className="atend-detail-val">{endereco.horarios}</span>
               </div>
               <div className="atend-detail">
                 <span className="atend-detail-key">Agendamento</span>
@@ -46,7 +50,7 @@ export default function Localizacao() {
             <div className="loc-ctas">
               <a
                 className="btn-whatsapp"
-                href={WHATSAPP_URL}
+                href={waUrl}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -55,21 +59,23 @@ export default function Localizacao() {
                 </svg>
                 Agendar pelo WhatsApp
               </a>
-              <a className="btn-ghost" href={`mailto:${EMAIL}`}>{EMAIL}</a>
+              <a className="btn-ghost" href={`mailto:${config.email}`}>{config.email}</a>
             </div>
           </div>
 
           <div className="loc-mapa">
-            <iframe
-              src={MAPS_EMBED_URL}
-              width="100%"
-              height="100%"
-              style={{ border: 0, minHeight: 280 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Localização da Dra. Roberta Pulcheri Ramos em São Paulo"
-            />
+            {endereco.mapsEmbedUrl && (
+              <iframe
+                src={endereco.mapsEmbedUrl}
+                width="100%"
+                height="100%"
+                style={{ border: 0, minHeight: 280 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Localização da Dra. Roberta Pulcheri Ramos em São Paulo"
+              />
+            )}
           </div>
         </div>
       </div>

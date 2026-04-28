@@ -1,55 +1,26 @@
-import { WHATSAPP_URL } from '@/lib/constants'
+import { getComoFunciona, getConfig } from '@/lib/content'
+import { WHATSAPP_MESSAGE } from '@/lib/constants'
 
-const passos = [
-  {
-    num: '01',
-    titulo: 'Agendamento',
-    desc: 'Entre em contato pelo WhatsApp ou e-mail. Você receberá a confirmação da consulta e orientações sobre o que trazer — exames, histórico e medicamentos em uso.',
-  },
-  {
-    num: '02',
-    titulo: 'Consulta detalhada',
-    desc: 'A primeira consulta dura entre 60 e 90 minutos. O histórico clínico é revisado completamente, incluindo exames anteriores, sintomas e impacto na qualidade de vida.',
-  },
-  {
-    num: '03',
-    titulo: 'Diagnóstico orientado por evidência',
-    desc: 'Quando necessário, exames complementares são solicitados — incluindo o teste cardiopulmonar de exercício (CPET), que avalia o pulmão enquanto ele trabalha de verdade.',
-  },
-  {
-    num: '04',
-    titulo: 'Plano de tratamento',
-    desc: 'O tratamento é individualizado e explicado com clareza. Você sai da consulta sabendo exatamente o que tem, por quê, e qual é o próximo passo.',
-  },
-  {
-    num: '05',
-    titulo: 'Acompanhamento contínuo',
-    desc: 'Retornos estruturados para avaliar a resposta ao tratamento. Telemedicina disponível para pacientes em São Paulo e em qualquer parte do mundo.',
-  },
-]
+export default async function ComoFunciona() {
+  const [cf, config] = await Promise.all([getComoFunciona(), getConfig()])
+  const waUrl = `https://wa.me/${config.whatsapp}?text=${WHATSAPP_MESSAGE}`
 
-export default function ComoFunciona() {
   return (
     <section id="como-funciona" aria-labelledby="cf-heading">
       <div className="section-inner">
         <span className="label">Processo</span>
-        <h2 id="cf-heading" className="section-heading">
-          Como funciona uma consulta de pneumologia
-        </h2>
-        <p className="section-lead">
-          Uma boa consulta começa antes de você entrar no consultório. E o diagnóstico
-          só é confiável quando o histórico é revisado com tempo e atenção.
-        </p>
+        <h2 id="cf-heading" className="section-heading">{cf.heading}</h2>
+        {cf.lead && <p className="section-lead">{cf.lead}</p>}
 
         <div className="cf-steps">
-          {passos.map((p, i) => (
-            <div key={p.num} className="cf-step">
-              <div className="cf-step-num" aria-hidden="true">{p.num}</div>
+          {cf.passos.map((p, i) => (
+            <div key={i} className="cf-step">
+              <div className="cf-step-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</div>
               <div className="cf-step-body">
                 <h3 className="cf-step-titulo">{p.titulo}</h3>
                 <p className="cf-step-desc">{p.desc}</p>
               </div>
-              {i < passos.length - 1 && (
+              {i < cf.passos.length - 1 && (
                 <div className="cf-connector" aria-hidden="true" />
               )}
             </div>
@@ -59,7 +30,7 @@ export default function ComoFunciona() {
         <div className="section-cta">
           <a
             className="btn-whatsapp"
-            href={WHATSAPP_URL}
+            href={waUrl}
             target="_blank"
             rel="noopener noreferrer"
           >

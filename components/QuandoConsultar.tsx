@@ -1,56 +1,21 @@
-import { WHATSAPP_URL } from '@/lib/constants'
+import { getQuandoConsultar, getConfig } from '@/lib/content'
+import { WHATSAPP_MESSAGE } from '@/lib/constants'
 
-const sinais = [
-  {
-    icone: '◉',
-    titulo: 'Tosse persistente',
-    desc: 'Tosse que dura mais de 3 semanas sem causa aparente, mesmo sem febre ou infecção recente.',
-  },
-  {
-    icone: '◉',
-    titulo: 'Falta de ar ao esforço',
-    desc: 'Dificuldade para respirar ao subir escadas, caminhar rápido ou em atividades que antes eram fáceis.',
-  },
-  {
-    icone: '◉',
-    titulo: 'Chiado no peito',
-    desc: 'Respiração ruidosa, sensação de aperto no tórax ou chiado ao inspirar ou expirar.',
-  },
-  {
-    icone: '◉',
-    titulo: 'Infecções pulmonares frequentes',
-    desc: 'Pneumonia, bronquite ou gripes intensas mais de duas vezes por ano podem indicar imunidade pulmonar comprometida.',
-  },
-  {
-    icone: '◉',
-    titulo: 'Alteração em exame de imagem',
-    desc: 'Nódulo, lesão ou infiltrado identificado em radiografia ou tomografia do tórax requer avaliação especializada.',
-  },
-  {
-    icone: '◉',
-    titulo: 'Diagnóstico respiratório sem acompanhamento',
-    desc: 'Asma, DPOC, apneia do sono ou hipertensão pulmonar sem seguimento regular com pneumologista.',
-  },
-]
+export default async function QuandoConsultar() {
+  const [qc, config] = await Promise.all([getQuandoConsultar(), getConfig()])
+  const waUrl = `https://wa.me/${config.whatsapp}?text=${WHATSAPP_MESSAGE}`
 
-export default function QuandoConsultar() {
   return (
     <section id="quando-consultar" aria-labelledby="qc-heading">
       <div className="section-inner">
         <span className="label">Sinais de alerta</span>
-        <h2 id="qc-heading" className="section-heading">
-          Quando devo procurar um pneumologista?
-        </h2>
-        <p className="section-lead">
-          O pneumologista é o especialista indicado quando os sintomas respiratórios
-          persistem, se repetem ou não têm explicação clara. Não espere os sintomas
-          piorarem para buscar avaliação.
-        </p>
+        <h2 id="qc-heading" className="section-heading">{qc.heading}</h2>
+        {qc.lead && <p className="section-lead">{qc.lead}</p>}
 
         <div className="qc-grid">
-          {sinais.map((s) => (
+          {qc.sinais.map((s) => (
             <div key={s.titulo} className="qc-card">
-              <span className="qc-icone" aria-hidden="true">{s.icone}</span>
+              <span className="qc-icone" aria-hidden="true">◉</span>
               <h3 className="qc-titulo">{s.titulo}</h3>
               <p className="qc-desc">{s.desc}</p>
             </div>
@@ -60,7 +25,7 @@ export default function QuandoConsultar() {
         <div className="section-cta">
           <a
             className="btn-whatsapp"
-            href={WHATSAPP_URL}
+            href={waUrl}
             target="_blank"
             rel="noopener noreferrer"
           >
