@@ -1,26 +1,27 @@
 'use client'
 import { useContent } from '../useContent'
+import ActionBar from '../ActionBar'
 
 type Sinal = { titulo: string; desc: string }
 const initial = { heading: '', lead: '', sinais: [] as Sinal[] }
 
 export default function QuandoConsultarPage() {
-  const { data, setData, loading, saving, msg, save } = useContent('quando_consultar', initial)
+  const { data, setData, loading, status, errorMsg, saveDraft, publish } = useContent('quando_consultar', initial)
 
-  if (loading) return <p className="adm-page-desc">Carregando…</p>
+  if (loading) return <p className="adm-page-desc" style={{ padding: '2rem' }}>Carregando…</p>
 
   function updateSinal(i: number, field: keyof Sinal, val: string) {
     const sinais = [...data.sinais]
     sinais[i] = { ...sinais[i], [field]: val }
     setData({ ...data, sinais })
   }
-  function addSinal() { setData({ ...data, sinais: [...data.sinais, { titulo: '', desc: '' }] }) }
-  function removeSinal(i: number) { setData({ ...data, sinais: data.sinais.filter((_, idx) => idx !== i) }) }
 
   return (
     <>
-      <h1 className="adm-page-title">Quando Consultar — Sinais de Alerta</h1>
-      <p className="adm-page-desc">Seção que explica ao paciente quando procurar um pneumologista.</p>
+      <div className="adm-page-header">
+        <h1 className="adm-page-title">Quando Consultar</h1>
+        <p className="adm-page-desc">Sinais de alerta que indicam ao paciente quando buscar um pneumologista.</p>
+      </div>
 
       <div className="adm-card">
         <div className="adm-field">
@@ -34,12 +35,12 @@ export default function QuandoConsultarPage() {
       </div>
 
       <div className="adm-card">
-        <div className="adm-card-title">Sinais de alerta</div>
+        <div className="adm-card-title">Sinais de alerta ({data.sinais.length})</div>
         {data.sinais.map((s, i) => (
           <div key={i} className="adm-array-item">
             <div className="adm-array-item-header">
               <span className="adm-array-item-label">Sinal {i + 1}</span>
-              <button className="adm-btn-danger" onClick={() => removeSinal(i)}>Remover</button>
+              <button className="adm-btn-danger" onClick={() => setData({ ...data, sinais: data.sinais.filter((_, idx) => idx !== i) })}>Remover</button>
             </div>
             <div className="adm-field">
               <label className="adm-label">Título</label>
@@ -51,15 +52,12 @@ export default function QuandoConsultarPage() {
             </div>
           </div>
         ))}
-        <button className="adm-btn-add" onClick={addSinal}>+ Adicionar sinal</button>
+        <button className="adm-btn-add" onClick={() => setData({ ...data, sinais: [...data.sinais, { titulo: '', desc: '' }] })}>
+          + Adicionar sinal de alerta
+        </button>
       </div>
 
-      <div className="adm-actions">
-        <button className="adm-btn-primary" onClick={() => save(data)} disabled={saving}>
-          {saving ? 'Salvando…' : 'Salvar tudo'}
-        </button>
-        {msg && <span className={msg.type === 'ok' ? 'adm-success' : 'adm-error'}>{msg.text}</span>}
-      </div>
+      <ActionBar contentKey="quando_consultar" status={status} errorMsg={errorMsg} onDraft={() => saveDraft(data)} onPublish={() => publish(data)} />
     </>
   )
 }

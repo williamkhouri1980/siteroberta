@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { SITE_URL, ADDRESS, EMAIL, WHATSAPP_NUMBER } from '@/lib/constants'
+import PreviewBanner from '@/components/PreviewBanner'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -266,7 +267,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <PreviewBanner />
+      </body>
     </html>
   )
 }

@@ -1,37 +1,66 @@
 'use client'
 import { useState, useEffect, useCallback } from 'react'
 
+export type SaveStatus = 'idle' | 'saving-draft' | 'publishing' | 'saved-draft' | 'published' | 'error'
+
 export function useContent<T>(key: string, initial: T) {
-  const [data, setData]       = useState<T>(initial)
-  const [loading, setLoading] = useState(true)
-  const [saving, setSaving]   = useState(false)
-  const [msg, setMsg]         = useState<{ type: 'ok' | 'err'; text: string } | null>(null)
+  const [data, setData]         = useState<T>(initial)
+  const [published, setPublished] = useState<T>(initial)
+  const [hasDraft, setHasDraft] = useState(false)
+  const [loading, setLoading]   = useState(true)
+  const [status, setStatus]     = useState<SaveStatus>('idle')
+  const [errorMsg, setErrorMsg] = useState('')
 
   useEffect(() => {
     fetch(`/api/admin/content?key=${key}`)
       .then(r => r.json())
-      .then(d => { if (d && Object.keys(d).length) setData(d) })
+      .then(d => {
+        if (d && Object.keys(d).length) {
+          setData(d)
+          setPublished(d)
+        }
+      })
       .finally(() => setLoading(false))
   }, [key])
 
-  const save = useCallback(async (value: T) => {
-    setSaving(true)
-    setMsg(null)
-    const res = await fetch(`/api/admin/content?key=${key}`, {
+  const saveDraft = useCallback(async (value: T) => {
+    setStatus('saving-draft')
+    const res = await fetch(`/api/admin/draft?key=${key}`, {
       method:  'PUT',
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify(value),
     })
-    setSaving(false)
     if (res.ok) {
-      setMsg({ type: 'ok', text: 'Salvo com sucesso!' })
       setData(value)
+      setHasDraft(true)
+      setStatus('saved-draft')
     } else {
-      const err = await res.json()
-      setMsg({ type: 'err', text: err.error ?? 'Erro ao salvar' })
+      const e = await res.json()
+      setErrorMsg(e.error ?? 'Erro ao salvar')
+      setStatus('error')
     }
-    setTimeout(() => setMsg(null), 3000)
+    setTimeout(() => setStatus('idle'), 3000)
   }, [key])
 
-  return { data, setData, loading, saving, msg, save }
+  const publish = useCallback(async (value: T) => {
+    setStatus('publishing')
+    const res = await fetch(`/api/admin/publish?key=${key}`, {
+      method:  'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(value),
+    })
+    if (res.ok) {
+      setData(value)
+      setPublished(value)
+      setHasDraft(false)
+      setStatus('published')
+    } else {
+      const e = await res.json()
+      setErrorMsg(e.error ?? 'Erro ao publicar')
+      setStatus('error')
+    }
+    setTimeout(() => setStatus('idle'), 3000)
+  }, [key])
+
+  return { data, setData, published, hasDraft, loading, status, errorMsg, saveDraft, publish }
 }

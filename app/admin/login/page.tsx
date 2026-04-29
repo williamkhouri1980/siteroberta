@@ -32,22 +32,25 @@ export default function LoginPage() {
     <div className="adm-login">
       <div className="adm-login-box">
         <div className="adm-login-brand">
-          <span className="adm-login-logo">RPR</span>
-          <p>Painel Administrativo</p>
+          <div className="adm-login-logo-wrap">RPR</div>
+          <h1>Painel Administrativo</h1>
+          <p>Dra. Roberta Pulcheri Ramos</p>
         </div>
         <form onSubmit={handleSubmit}>
-          <label className="adm-label">Senha</label>
-          <input
-            className="adm-input"
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            placeholder="••••••••"
-            autoFocus
-            required
-          />
-          {error && <p className="adm-error">{error}</p>}
-          <button className="adm-btn-primary" type="submit" disabled={loading}>
+          <div className="adm-field">
+            <label className="adm-label">Senha de acesso</label>
+            <input
+              className="adm-input"
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              placeholder="••••••••••••"
+              autoFocus
+              required
+            />
+          </div>
+          {error && <p className="adm-error" style={{ marginBottom: '0.75rem' }}>{error}</p>}
+          <button className="adm-btn-primary" type="submit" disabled={loading} style={{ width: '100%', padding: '0.75rem' }}>
             {loading ? 'Entrando…' : 'Entrar'}
           </button>
         </form>

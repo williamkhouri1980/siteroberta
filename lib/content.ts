@@ -1,19 +1,26 @@
+import { draftMode } from 'next/headers'
 import { supabaseAdmin } from './supabase'
 import {
   WHATSAPP_NUMBER, WHATSAPP_MESSAGE, EMAIL, CRM, LATTES_URL, SITE_URL, ADDRESS, MAPS_EMBED_URL
 } from './constants'
 
 // Busca um singleton do Supabase com fallback para o valor default
+// Em modo preview lê do campo draft (rascunho não publicado)
 async function getSection<T>(key: string, fallback: T): Promise<T> {
   try {
+    const { isEnabled } = await draftMode()
+
     const { data, error } = await supabaseAdmin
       .from('site_content')
-      .select('value')
+      .select('value, draft')
       .eq('key', key)
       .single()
 
-    if (error || !data?.value || Object.keys(data.value).length === 0) return fallback
-    return data.value as T
+    if (error || !data) return fallback
+
+    const content = isEnabled && data.draft ? data.draft : data.value
+    if (!content || Object.keys(content).length === 0) return fallback
+    return content as T
   } catch {
     return fallback
   }

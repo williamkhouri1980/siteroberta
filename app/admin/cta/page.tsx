@@ -1,17 +1,20 @@
 'use client'
 import { useContent } from '../useContent'
+import ActionBar from '../ActionBar'
 
 const initial = { heading: '', subtitulo: '' }
 
 export default function CtaPage() {
-  const { data, setData, loading, saving, msg, save } = useContent('cta', initial)
+  const { data, setData, loading, status, errorMsg, saveDraft, publish } = useContent('cta', initial)
 
-  if (loading) return <p className="adm-page-desc">Carregando…</p>
+  if (loading) return <p className="adm-page-desc" style={{ padding: '2rem' }}>Carregando…</p>
 
   return (
     <>
-      <h1 className="adm-page-title">CTA — Seção Agendar</h1>
-      <p className="adm-page-desc">Bloco final de chamada para agendamento.</p>
+      <div className="adm-page-header">
+        <h1 className="adm-page-title">CTA — Seção Agendar</h1>
+        <p className="adm-page-desc">Bloco final de chamada para agendamento pelo WhatsApp.</p>
+      </div>
 
       <div className="adm-card">
         <div className="adm-field">
@@ -22,13 +25,9 @@ export default function CtaPage() {
           <label className="adm-label">Subtítulo</label>
           <textarea className="adm-textarea" value={data.subtitulo} onChange={e => setData({ ...data, subtitulo: e.target.value })} />
         </div>
-        <div className="adm-actions">
-          <button className="adm-btn-primary" onClick={() => save(data)} disabled={saving}>
-            {saving ? 'Salvando…' : 'Salvar'}
-          </button>
-          {msg && <span className={msg.type === 'ok' ? 'adm-success' : 'adm-error'}>{msg.text}</span>}
-        </div>
       </div>
+
+      <ActionBar contentKey="cta" status={status} errorMsg={errorMsg} onDraft={() => saveDraft(data)} onPublish={() => publish(data)} />
     </>
   )
 }
