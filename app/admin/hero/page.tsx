@@ -7,10 +7,24 @@ const initial = {
   eyebrow: '', h1: '', corpo: '', ctaPrimario: '', ctaSecundario: '', fotoUrl: '',
 }
 
+const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp']
+const MAX_SIZE_MB   = 8
+const MIN_WIDTH_PX  = 600
+
+function getImageDimensions(file: File): Promise<{ w: number; h: number }> {
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file)
+    const img = new window.Image()
+    img.onload  = () => { URL.revokeObjectURL(url); resolve({ w: img.naturalWidth, h: img.naturalHeight }) }
+    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('Não foi possível ler as dimensões')) }
+    img.src = url
+  })
+}
+
 export default function HeroPage() {
   const { data, setData, loading, status, errorMsg, saveDraft, publish } = useContent('hero', initial)
   const [uploading, setUploading] = useState(false)
-  const [uploadMsg, setUploadMsg] = useState<{ type: 'ok' | 'err'; text: string } | null>(null)
+  const [uploadMsg, setUploadMsg] = useState<{ type: 'ok' | 'err' | 'warn'; text: string } | null>(null)
   const fileRef = useRef<HTMLInputElement>(null)
 
   if (loading) return <p className="adm-page-desc" style={{ padding: '2rem' }}>Carregando…</p>
@@ -18,8 +32,41 @@ export default function HeroPage() {
   async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
     if (!file) return
+
+    // Tipo
+    if (!ALLOWED_TYPES.includes(file.type)) {
+      setUploadMsg({ type: 'err', text: 'Formato inválido. Use JPG, PNG ou WebP.' })
+      return
+    }
+
+    // Tamanho
+    if (file.size > MAX_SIZE_MB * 1024 * 1024) {
+      setUploadMsg({ type: 'err', text: `Arquivo muito grande. Máximo ${MAX_SIZE_MB}MB.` })
+      return
+    }
+
+    // Dimensões e proporção
+    try {
+      const { w, h } = await getImageDimensions(file)
+      if (w < MIN_WIDTH_PX) {
+        setUploadMsg({ type: 'err', text: `Imagem muito pequena (${w}px de largura). Mínimo ${MIN_WIDTH_PX}px.` })
+        return
+      }
+      if (w >= h) {
+        setUploadMsg({ type: 'err', text: `Use uma foto no formato retrato (vertical). A imagem enviada é ${w}×${h}px — mais larga do que alta.` })
+        return
+      }
+      const ratio = h / w
+      if (ratio < 1.2) {
+        setUploadMsg({ type: 'warn', text: `Foto quase quadrada (${w}×${h}px). O ideal é proporção 2:3 ou mais alta. O resultado pode não ficar perfeito.` })
+        // avisa mas não bloqueia
+      }
+    } catch {
+      // se não conseguir ler, deixa o servidor decidir
+    }
+
     setUploading(true)
-    setUploadMsg(null)
+    if (!uploadMsg || uploadMsg.type !== 'warn') setUploadMsg(null)
     const form = new FormData()
     form.append('file', file)
     const res  = await fetch('/api/admin/upload', { method: 'POST', body: form })
@@ -31,7 +78,7 @@ export default function HeroPage() {
     } else {
       setUploadMsg({ type: 'err', text: json.error ?? 'Erro no upload' })
     }
-    setTimeout(() => setUploadMsg(null), 4000)
+    setTimeout(() => setUploadMsg(null), 5000)
   }
 
   return (
@@ -57,7 +104,12 @@ export default function HeroPage() {
             <button className="adm-btn-secondary" onClick={() => fileRef.current?.click()} disabled={uploading} style={{ width: 'fit-content' }}>
               {uploading ? 'Enviando…' : 'Escolher nova foto'}
             </button>
-            {uploadMsg && <p className={uploadMsg.type === 'ok' ? 'adm-success' : 'adm-error'}>{uploadMsg.text}</p>}
+            {uploadMsg && (
+              <p className={
+                uploadMsg.type === 'ok'   ? 'adm-success' :
+                uploadMsg.type === 'warn' ? 'adm-warn'    : 'adm-error'
+              }>{uploadMsg.text}</p>
+            )}
             {data.fotoUrl && (
               <button className="adm-btn-danger" onClick={() => setData({ ...data, fotoUrl: '' })} style={{ width: 'fit-content', fontSize: '0.78rem' }}>
                 Remover — usar foto padrão

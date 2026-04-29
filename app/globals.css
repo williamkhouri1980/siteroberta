@@ -430,9 +430,9 @@ address { font-style: normal; }
 }
 .cred-item {
   font-family: var(--mono);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 400;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.10em;
   text-transform: uppercase;
   color: var(--low);
 }
@@ -445,9 +445,9 @@ address { font-style: normal; }
 .cred-link:hover { border-color: var(--a1); }
 .sobre-crm {
   font-family: var(--mono);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 400;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.10em;
   text-transform: uppercase;
   color: var(--low);
   margin-top: 16px;
@@ -852,6 +852,13 @@ footer {
   letter-spacing: 0.10em;
 }
 
+/* ── MOBILE: credenciais maiores ── */
+@media (max-width: 639px) {
+  .cred-item { font-size: 14px; letter-spacing: 0.08em; }
+  .sobre-crm  { font-size: 14px; letter-spacing: 0.08em; }
+  .sobre-credentials { gap: 12px 0; flex-direction: column; }
+}
+
 /* ── TABLET 640px+ ── */
 @media (min-width: 640px) {
   .nav { padding: 0 36px; }
@@ -921,13 +928,20 @@ footer {
     flex-direction: column;
     justify-content: center;
   }
-  .hero-photo { flex: 44; height: auto; }
-  .hero-photo-wrap { height: 100%; }
+  .hero-photo {
+    flex: 44;
+    position: relative;  /* ancora o wrapper absoluto */
+    overflow: hidden;
+  }
+  .hero-photo-wrap {
+    position: absolute;
+    inset: 0;             /* preenche 100% do flex item sem depender de height */
+  }
   .hero-photo-wrap img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center center;
+    object-position: top center; /* mostra rosto, não cintura */
   }
 
   .section-inner { padding: 112px 56px; }

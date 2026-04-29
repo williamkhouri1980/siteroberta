@@ -88,8 +88,13 @@
   color:       var(--adm-text);
 }
 .adm-sidebar-brand-text span {
-  font-size: 0.72rem;
-  color:     var(--adm-muted);
+  font-size:      0.7rem;
+  color:          var(--adm-muted);
+  white-space:    nowrap;
+  overflow:       hidden;
+  text-overflow:  ellipsis;
+  display:        block;
+  max-width:      160px;
 }
 
 .adm-nav {

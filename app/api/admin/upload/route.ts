@@ -1,13 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
 
+const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp']
+const MAX_SIZE_MB   = 8
+
 export async function POST(req: NextRequest) {
   const form = await req.formData()
   const file = form.get('file') as File | null
 
   if (!file) return NextResponse.json({ error: 'Arquivo obrigatório' }, { status: 400 })
 
-  const ext      = file.name.split('.').pop()
+  if (!ALLOWED_TYPES.includes(file.type))
+    return NextResponse.json({ error: 'Formato inválido. Use JPG, PNG ou WebP.' }, { status: 400 })
+
+  if (file.size > MAX_SIZE_MB * 1024 * 1024)
+    return NextResponse.json({ error: `Arquivo muito grande. Máximo ${MAX_SIZE_MB}MB.` }, { status: 400 })
+
+  const ext      = file.name.split('.').pop()?.toLowerCase() ?? 'jpg'
   const filename = `hero-foto.${ext}`
   const buffer   = Buffer.from(await file.arrayBuffer())
 
