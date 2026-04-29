@@ -31,25 +31,28 @@
   line-height: 1.5;
 }
 
-/* Desktop: sidebar dentro do shell; mobile: topbar acima do shell */
+/* Desktop: sidebar fixa à esquerda; mobile: topbar acima do shell */
 @media (min-width: 901px) {
   .adm-topbar,
   .adm-hamburger,
   .adm-overlay,
   .adm-drawer { display: none !important; }
+
+  .adm-shell { margin-left: var(--adm-sidebar-w); }
 }
 
 /* ── Sidebar ─────────────────────────────────────────────── */
 .adm-sidebar {
   width:        var(--adm-sidebar-w);
-  min-height:   100vh;
   background:   var(--adm-surface);
   border-right: 1px solid var(--adm-border);
   display:      flex;
   flex-direction: column;
-  position:     sticky;
+  position:     fixed;
   top:          0;
-  height:       100vh;
+  left:         0;
+  bottom:       0;
+  z-index:      50;
   overflow-y:   auto;
   scrollbar-width: thin;
   scrollbar-color: var(--adm-border) transparent;
