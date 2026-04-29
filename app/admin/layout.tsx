@@ -9,9 +9,11 @@ export const metadata: Metadata = {
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="adm-shell">
+    <>
       <AdminNav />
-      <main className="adm-main">{children}</main>
-    </div>
+      <div className="adm-shell">
+        <main className="adm-main">{children}</main>
+      </div>
+    </>
   )
 }

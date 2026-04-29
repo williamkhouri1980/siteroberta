@@ -31,6 +31,14 @@
   line-height: 1.5;
 }
 
+/* Desktop: sidebar dentro do shell; mobile: topbar acima do shell */
+@media (min-width: 901px) {
+  .adm-topbar,
+  .adm-hamburger,
+  .adm-overlay,
+  .adm-drawer { display: none !important; }
+}
+
 /* ── Sidebar ─────────────────────────────────────────────── */
 .adm-sidebar {
   width:        var(--adm-sidebar-w);
@@ -630,58 +638,134 @@
   line-height: 1.4;
 }
 
+/* ── Topbar (mobile) ─────────────────────────────────────── */
+.adm-topbar {
+  display: none;
+}
+
+/* ── Hamburger ───────────────────────────────────────────── */
+.adm-hamburger {
+  display:         flex;
+  flex-direction:  column;
+  justify-content: center;
+  gap:             5px;
+  width:           36px;
+  height:          36px;
+  padding:         6px;
+  background:      transparent;
+  border:          1px solid var(--adm-border);
+  border-radius:   var(--adm-radius);
+  cursor:          pointer;
+  flex-shrink:     0;
+}
+.adm-hamburger span {
+  display:       block;
+  height:        2px;
+  background:    var(--adm-text-2);
+  border-radius: 2px;
+  transition:    transform 0.2s, opacity 0.2s;
+}
+.adm-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.adm-hamburger.open span:nth-child(2) { opacity: 0; }
+.adm-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Overlay ─────────────────────────────────────────────── */
+.adm-overlay {
+  display:  none;
+  position: fixed;
+  inset:    0;
+  z-index:  200;
+  background: rgba(0,0,0,0.5);
+}
+
+/* ── Drawer ──────────────────────────────────────────────── */
+.adm-drawer {
+  display:    none;
+  position:   fixed;
+  top:        0;
+  left:       0;
+  right:      0;
+  z-index:    201;
+  background: var(--adm-surface);
+  border-bottom: 1px solid var(--adm-border);
+  transform:  translateY(-100%);
+  transition: transform 0.25s ease;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+.adm-drawer.open { transform: translateY(0); }
+
+.adm-drawer-inner { padding: 0.75rem 0.75rem 1rem; }
+.adm-drawer-section { margin-bottom: 0.5rem; }
+
+.adm-drawer-footer {
+  border-top:     1px solid var(--adm-border);
+  padding-top:    0.75rem;
+  margin-top:     0.75rem;
+  display:        flex;
+  flex-direction: column;
+  gap:            0.25rem;
+}
+
 /* ── Responsive ──────────────────────────────────────────── */
 @media (max-width: 900px) {
-  .adm-shell { flex-direction: column; }
+  /* Esconde sidebar desktop */
+  .adm-sidebar { display: none; }
 
-  .adm-sidebar {
-    width:    100%;
-    height:   auto;
-    position: sticky;
-    top:      0;
-    z-index:  50;
-    overflow: visible;
-    border-right:  none;
-    border-bottom: 1px solid var(--adm-border);
+  /* Mostra topbar + drawer */
+  .adm-topbar {
+    display:         flex;
+    align-items:     center;
+    justify-content: space-between;
+    padding:         0.625rem 1rem;
+    background:      var(--adm-surface);
+    border-bottom:   1px solid var(--adm-border);
+    position:        sticky;
+    top:             0;
+    z-index:         100;
+    gap:             0.75rem;
   }
-
-  .adm-sidebar-brand { padding: 0.625rem 1rem; }
-
-  .adm-sidebar-brand-inner { gap: 0.5rem; }
-  .adm-sidebar-logo { width: 28px; height: 28px; font-size: 0.7rem; border-radius: 6px; }
-  .adm-sidebar-brand-text strong { font-size: 0.8rem; }
-  .adm-sidebar-brand-text span { display: none; }
-
-  .adm-nav {
-    flex-direction: row;
-    flex-wrap:      nowrap;
-    overflow-x:     auto;
-    padding:        0.375rem 0.5rem;
-    gap:            2px;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+  .adm-topbar-brand {
+    display:     flex;
+    align-items: center;
+    gap:         0.6rem;
+    min-width:   0;
   }
-  .adm-nav::-webkit-scrollbar { display: none; }
-
-  .adm-nav > div {
-    display:   contents;
+  .adm-topbar-title {
+    font-size:     0.88rem;
+    font-weight:   600;
+    color:         var(--adm-text);
+    white-space:   nowrap;
+    overflow:      hidden;
+    text-overflow: ellipsis;
   }
-
-  .adm-nav-section { display: none; }
-
-  .adm-nav-item {
-    padding:    0.4rem 0.65rem;
-    font-size:  0.78rem;
-    white-space: nowrap;
+  .adm-topbar-actions {
+    display:     flex;
+    align-items: center;
+    gap:         0.5rem;
     flex-shrink: 0;
   }
-  .adm-nav-item.active::before { display: none; }
+  .adm-topbar-btn {
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    width:           36px;
+    height:          36px;
+    border:          1px solid var(--adm-border);
+    border-radius:   var(--adm-radius);
+    color:           var(--adm-muted);
+    text-decoration: none;
+    font-size:       0.9rem;
+    transition:      color 0.15s;
+  }
+  .adm-topbar-btn:hover { color: var(--adm-text); }
 
-  .adm-sidebar-footer { display: none; }
+  .adm-overlay { display: block; }
+  .adm-drawer  { display: block; }
 
-  .adm-main { padding: 1rem 1rem 6rem; }
-
-  .adm-page-header { margin-bottom: 1.25rem; }
+  /* Shell e main */
+  .adm-shell { flex-direction: column; }
+  .adm-main  { padding: 1.25rem 1rem 6rem; }
 
   .adm-action-bar {
     left:    0;
