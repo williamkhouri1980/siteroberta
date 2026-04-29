@@ -3,7 +3,7 @@ import AdminNav from './AdminNav'
 import '../admin.css'
 
 export const metadata: Metadata = {
-  title: 'Admin — Dra. Roberta Ramos',
+  title: 'Admin — Dra. Roberta Pulcheri Ramos',
   robots: { index: false, follow: false },
 }
 

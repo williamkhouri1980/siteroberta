@@ -231,8 +231,7 @@ address { font-style: normal; }
   font-weight: 400;
   color: var(--ink);
 }
-.nav-name-full  { display: none; }
-.nav-name-short { display: inline; }
+.nav-name { display: inline; }
 
 .nav-toggle {
   display: flex;
@@ -431,9 +430,9 @@ address { font-style: normal; }
 }
 .cred-item {
   font-family: var(--mono);
-  font-size: 8px;
-  font-weight: 300;
-  letter-spacing: 0.14em;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--low);
 }
@@ -446,9 +445,9 @@ address { font-style: normal; }
 .cred-link:hover { border-color: var(--a1); }
 .sobre-crm {
   font-family: var(--mono);
-  font-size: 8px;
-  font-weight: 300;
-  letter-spacing: 0.14em;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--low);
   margin-top: 16px;
@@ -855,8 +854,6 @@ footer {
 
 /* ── TABLET 640px+ ── */
 @media (min-width: 640px) {
-  .nav-name-short { display: none; }
-  .nav-name-full  { display: inline; }
   .nav { padding: 0 36px; }
   .nav-drawer { padding: 24px 36px; }
 

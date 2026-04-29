@@ -105,7 +105,7 @@ export default function AdminNav() {
             <div className="adm-sidebar-logo">RPR</div>
             <div className="adm-sidebar-brand-text">
               <strong>Admin</strong>
-              <span>Dra. Roberta Ramos</span>
+              <span>Dra. Roberta Pulcheri Ramos</span>
             </div>
           </div>
         </div>
