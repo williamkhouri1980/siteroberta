@@ -107,9 +107,10 @@ export default function CondicoesPage() {
             <label className="adm-label">Descrição completa</label>
             <textarea className="adm-textarea" value={editing.descricao} onChange={e => setEditing({ ...editing, descricao: e.target.value })} style={{ minHeight: '120px' }} />
           </div>
-          <div style={{ display: 'flex', gap: '0.75rem', marginTop: '0.5rem' }}>
-            <button className="adm-btn-publish" onClick={handleSave} disabled={saving}>{saving ? 'Salvando…' : 'Salvar'}</button>
+          <div style={{ display: 'flex', gap: '0.75rem', marginTop: '0.5rem', alignItems: 'center' }}>
+            <button className="adm-btn-publish" onClick={handleSave} disabled={saving}>{saving ? 'Publicando…' : '✓ Salvar e Publicar'}</button>
             <button className="adm-btn-secondary" onClick={() => setEditing(null)}>Cancelar</button>
+            <span style={{ fontSize: '0.75rem', color: 'var(--adm-muted)' }}>Condições vão ao ar imediatamente</span>
           </div>
         </div>
       )}
