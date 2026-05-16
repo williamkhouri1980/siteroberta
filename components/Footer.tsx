@@ -1,4 +1,4 @@
-import { EMAIL, LATTES_URL, ADDRESS, CRM, WHATSAPP_URL } from '@/lib/constants'
+import { EMAIL, LATTES_URL, ADDRESS, WHATSAPP_URL } from '@/lib/constants'
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -12,7 +12,7 @@ export default function Footer() {
             <span className="footer-name">Roberta Pulcheri Ramos</span>
           </div>
           <p className="footer-esp">Pneumologia &middot; São Paulo</p>
-          <p className="footer-crm-foot">{CRM}</p>
+
         </div>
 
         <div className="footer-cols">

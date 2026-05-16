@@ -1,7 +1,7 @@
-import { getSobre, getConfig } from '@/lib/content'
+import { getSobre } from '@/lib/content'
 
 export default async function Sobre() {
-  const [sobre, config] = await Promise.all([getSobre(), getConfig()])
+  const sobre = await getSobre()
 
   return (
     <section id="sobre" aria-labelledby="sobre-heading">
@@ -30,7 +30,7 @@ export default async function Sobre() {
               )}
             </div>
 
-            <p className="sobre-crm">{config.crm}</p>
+
           </div>
         </div>
       </div>
