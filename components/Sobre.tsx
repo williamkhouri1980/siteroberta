@@ -1,4 +1,5 @@
 import { getSobre } from '@/lib/content'
+import PulmiTree from './PulmiTree'
 
 export default async function Sobre() {
   const sobre = await getSobre()
@@ -8,7 +9,12 @@ export default async function Sobre() {
       <div className="section-inner">
         <span className="label">Sobre a especialista</span>
         <div className="sobre-grid">
-          <h2 id="sobre-heading" className="sobre-heading">{sobre.heading}</h2>
+          <div className="sobre-left">
+            <h2 id="sobre-heading" className="sobre-heading">{sobre.heading}</h2>
+            <div className="sobre-signature">
+              <PulmiTree size={180} />
+            </div>
+          </div>
           <div className="sobre-body">
             {sobre.paragrafos.map((p, i) => (
               <p key={i}>{p}</p>
