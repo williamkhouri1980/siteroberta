@@ -35,9 +35,9 @@ export default async function Hero() {
         <p className="hero-eyebrow">{hero.eyebrow}</p>
 
         <h1 className="hero-h1">
-          <span className="hero-h1-primary">{h1Primary}</span>
+          <span className="h1-primary">{h1Primary}</span>
           {h1Secondary && (
-            <span className="hero-h1-secondary">{h1Secondary}</span>
+            <span className="h1-secondary">{h1Secondary}</span>
           )}
         </h1>
 

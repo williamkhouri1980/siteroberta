@@ -1,7 +1,28 @@
 import type { Metadata } from 'next'
+import { Cormorant_Garamond, DM_Sans, DM_Mono } from 'next/font/google'
 import './globals.css'
 import { SITE_URL, ADDRESS, EMAIL, WHATSAPP_NUMBER } from '@/lib/constants'
 import PreviewBanner from '@/components/PreviewBanner'
+
+const serif = Cormorant_Garamond({
+  subsets:  ['latin'],
+  weight:   ['300', '400', '500'],
+  style:    ['normal', 'italic'],
+  variable: '--font-serif',
+  display:  'swap',
+})
+const sans = DM_Sans({
+  subsets:  ['latin'],
+  weight:   ['300', '400', '500'],
+  variable: '--font-sans',
+  display:  'swap',
+})
+const mono = DM_Mono({
+  subsets:  ['latin'],
+  weight:   ['300', '400'],
+  variable: '--font-mono',
+  display:  'swap',
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -260,7 +281,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" className={`${serif.variable} ${sans.variable} ${mono.variable}`}>
       <head>
         <script
           type="application/ld+json"

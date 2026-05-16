@@ -25,9 +25,9 @@ export default function Nav() {
   return (
     <>
       <nav className={`nav${scrolled ? ' scrolled' : ''}`} id="main-nav">
-        <Link className="nav-brand" href="#hero">
-          <span className="nav-dra">Dra.</span>
-          <span className="nav-name">Roberta Pulcheri Ramos</span>
+        <Link className="brand" href="#hero">
+          <span className="brand-dra">Dra.</span>
+          <span className="brand-name">Roberta Pulcheri Ramos</span>
         </Link>
 
         <ul className="nav-links">
