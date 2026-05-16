@@ -943,14 +943,21 @@ footer {
   }
   .hero-photo {
     grid-column: 2;
-    height: 100%;
     overflow: hidden;
+    position: relative;
+  }
+  /* <picture> é inline por padrão — precisa ser block e preencher
+     o container para que o <img> filho consiga height: 100% */
+  .hero-photo picture {
+    display: block;
+    height: 100%;
   }
   .hero-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: left center; /* âncora à esquerda — Roberta sempre visível */
+    display: block;
   }
 
   .section-inner { padding: 112px 56px; }
