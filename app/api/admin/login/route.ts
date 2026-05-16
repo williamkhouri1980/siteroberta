@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
 
   try {
     await resend.emails.send({
-      from:    'Admin Dra. Roberta <onboarding@resend.dev>',
+      from:    'Admin Dra. Roberta <no-reply@robertapulcheri.com.br>',
       to:      recipients,
       subject: `Código de acesso ao painel: ${code}`,
       html: `
