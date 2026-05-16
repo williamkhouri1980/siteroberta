@@ -1,6 +1,7 @@
 'use client'
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import PulmiTree from '@/components/PulmiTree'
 
 type Step = 'password' | 'otp'
 
@@ -65,7 +66,9 @@ export default function LoginPage() {
     <div className="adm-login">
       <div className="adm-login-box">
         <div className="adm-login-brand">
-          <div className="adm-login-logo-wrap">RPR</div>
+          <div className="adm-login-logo-wrap">
+            <PulmiTree size={72} dark />
+          </div>
           <h1>Painel Administrativo</h1>
           <p>Dra. Roberta Pulcheri Ramos</p>
         </div>

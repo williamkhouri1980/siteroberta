@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { headers } from 'next/headers'
 import AdminNav from './AdminNav'
 import '../admin.css'
 
@@ -7,7 +8,15 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default async function AdminLayout({ children }: { children: React.ReactNode }) {
+  const headersList = await headers()
+  const pathname    = headersList.get('x-pathname') ?? ''
+
+  // Na página de login não exibe o painel (sem nav, sem sidebar)
+  if (pathname === '/admin/login') {
+    return <>{children}</>
+  }
+
   return (
     <>
       <AdminNav />

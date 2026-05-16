@@ -41,6 +41,16 @@
   transform-origin: 50px 72px;
 }
 
+/* ── Variante escura para o painel admin ── */
+.pulmidark {
+  --pulmi-edge: #6E94AC;
+  --pulmi-node: #9AC4D8;
+  --pulmi-ring: #8CC6BA;
+  background: linear-gradient(145deg, #1A1F2B 0%, #141823 100%);
+  border-radius: 26%;
+  box-shadow: 0 6px 32px rgba(26, 31, 43, 0.32);
+}
+
 /* ── Acessibilidade ── */
 @media (prefers-reduced-motion: reduce) {
   .node, .ring {

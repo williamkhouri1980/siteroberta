@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
+import PulmiTree from '@/components/PulmiTree'
 
 const sections = [
   {
@@ -47,7 +48,7 @@ export default function AdminNav() {
       {/* ── Topbar (mobile + desktop) ── */}
       <header className="adm-topbar">
         <div className="adm-topbar-brand">
-          <div className="adm-sidebar-logo">RPR</div>
+          <PulmiTree size={36} dark />
           <span className="adm-topbar-title">{currentLabel}</span>
         </div>
         <div className="adm-topbar-actions">
@@ -102,7 +103,7 @@ export default function AdminNav() {
       <aside className="adm-sidebar">
         <div className="adm-sidebar-brand">
           <div className="adm-sidebar-brand-inner">
-            <div className="adm-sidebar-logo">RPR</div>
+            <PulmiTree size={48} dark />
             <div className="adm-sidebar-brand-text">
               <strong>Admin</strong>
               <span>Dra. Roberta Pulcheri Ramos</span>

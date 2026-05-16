@@ -2,7 +2,7 @@
 import React from 'react'
 import styles from './PulmiTree.module.css'
 
-interface PulmiTreeProps { size?: number }
+interface PulmiTreeProps { size?: number; dark?: boolean }
 
 // [cx, cy, radius, animDuration, animDelay]
 const nodes: [number, number, number, number, number][] = [
@@ -14,10 +14,10 @@ const nodes: [number, number, number, number, number][] = [
   [62, 63, 0.60, 3.0, 1.30], [42, 48, 0.55, 1.8, 1.48], [58, 48, 0.55, 2.2, 1.44],
 ]
 
-export default function PulmiTree({ size = 180 }: PulmiTreeProps) {
+export default function PulmiTree({ size = 180, dark = false }: PulmiTreeProps) {
   return (
     <div
-      className={styles.pulmi}
+      className={`${styles.pulmi}${dark ? ` ${styles.pulmidark}` : ''}`}
       style={{ '--size': `${size}px` } as React.CSSProperties}
       aria-hidden="true"
     >

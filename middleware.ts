@@ -3,8 +3,14 @@ import { NextRequest, NextResponse } from 'next/server'
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl
 
-  // Deixa a rota de login passar
-  if (pathname === '/admin/login') return NextResponse.next()
+  // Propaga o pathname como header para os layouts Server Components lerem
+  const requestHeaders = new Headers(req.headers)
+  requestHeaders.set('x-pathname', pathname)
+
+  // Deixa a rota de login passar (sem checar sessão)
+  if (pathname === '/admin/login') {
+    return NextResponse.next({ request: { headers: requestHeaders } })
+  }
 
   // Verifica cookie de sessão
   const session = req.cookies.get('admin_session')?.value
@@ -16,7 +22,7 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(loginUrl)
   }
 
-  return NextResponse.next()
+  return NextResponse.next({ request: { headers: requestHeaders } })
 }
 
 export const config = {
