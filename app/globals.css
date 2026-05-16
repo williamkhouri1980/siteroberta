@@ -35,11 +35,11 @@ address { font-style: normal; }
 /* ── SHARED TYPOGRAPHY ── */
 .label {
   font-family: var(--mono);
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 300;
-  letter-spacing: 0.20em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--low);
+  color: var(--a1);
   display: block;
   margin-bottom: 20px;
 }
@@ -398,16 +398,18 @@ address { font-style: normal; }
 }
 .qc-card {
   background: var(--s0);
-  padding: 24px 20px;
-  border-left: 2px solid transparent;
+  padding: 28px 20px 24px;
+  border-top: 2px solid transparent;
   transition: border-color 0.25s;
 }
-.qc-card:hover { border-color: var(--a1); }
-.qc-icone {
+.qc-card:hover { border-top-color: var(--a1); }
+.qc-card-num {
+  font-family: var(--mono);
   font-size: 10px;
+  letter-spacing: 0.18em;
   color: var(--a1);
+  margin-bottom: 14px;
   display: block;
-  margin-bottom: 10px;
 }
 .qc-titulo {
   font-family: var(--serif);
@@ -545,12 +547,14 @@ address { font-style: normal; }
 }
 .cf-step:last-child { border-bottom: none; }
 .cf-step-num {
-  font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 300;
-  letter-spacing: 0.18em;
-  color: var(--a1);
-  padding-top: 4px;
+  font-family: var(--serif);
+  font-size: 44px;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1;
+  color: var(--low);
+  opacity: 0.5;
+  padding-top: 2px;
 }
 .cf-step-titulo {
   font-family: var(--serif);
@@ -572,7 +576,7 @@ address { font-style: normal; }
   background: var(--ink);
   border-bottom: 1px solid oklch(22% 0.010 255);
 }
-#reconhecimento .label { color: oklch(40% 0.008 255); }
+#reconhecimento .label { color: oklch(48% 0.020 220); } /* teal atenuado no fundo escuro */
 #reconhecimento .section-heading { color: oklch(92% 0.005 260); }
 
 .rec-stats {
@@ -797,15 +801,18 @@ footer {
 .footer-brand { display: flex; align-items: baseline; gap: 6px; }
 .footer-dra {
   font-family: var(--mono);
-  font-size: 8px;
+  font-size: 9px;
+  font-weight: 300;
   color: oklch(40% 0.008 255);
-  letter-spacing: 0.18em;
+  letter-spacing: 0.20em;
   text-transform: uppercase;
 }
 .footer-name {
   font-family: var(--serif);
-  font-size: 16px;
-  color: oklch(72% 0.006 260);
+  font-size: 17px;
+  font-weight: 400;
+  color: oklch(78% 0.006 260);
+  letter-spacing: 0.01em;
 }
 .footer-esp {
   font-family: var(--mono);
@@ -1003,4 +1010,17 @@ footer {
     margin-left: auto;
     margin-right: auto;
   }
+}
+
+/* ── SCROLL REVEAL ── */
+/* Ativo somente quando JS montou (data-scroll-ready no <html>).
+   Sem JS todas as seções ficam visíveis normalmente. */
+[data-scroll-ready] section:not(#hero):not([data-visible]) {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+[data-scroll-ready] section[data-visible] {
+  opacity: 1;
+  transform: translateY(0);
 }

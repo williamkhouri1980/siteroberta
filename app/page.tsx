@@ -12,6 +12,7 @@ import Faq             from '@/components/Faq'
 import Agendar         from '@/components/Agendar'
 import Footer          from '@/components/Footer'
 import WhatsAppButton  from '@/components/WhatsAppButton'
+import ScrollReveal    from '@/components/ScrollReveal'
 
 export default async function Home() {
   const config = await getConfig()
@@ -34,6 +35,7 @@ export default async function Home() {
       </main>
       <Footer />
       <WhatsAppButton waUrl={waUrl} />
+      <ScrollReveal />
     </>
   )
 }

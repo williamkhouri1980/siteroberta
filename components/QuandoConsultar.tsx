@@ -13,9 +13,11 @@ export default async function QuandoConsultar() {
         {qc.lead && <p className="section-lead">{qc.lead}</p>}
 
         <div className="qc-grid">
-          {qc.sinais.map((s) => (
+          {qc.sinais.map((s, i) => (
             <div key={s.titulo} className="qc-card">
-              <span className="qc-icone" aria-hidden="true">◉</span>
+              <span className="qc-card-num" aria-hidden="true">
+                {String(i + 1).padStart(2, '0')}
+              </span>
               <h3 className="qc-titulo">{s.titulo}</h3>
               <p className="qc-desc">{s.desc}</p>
             </div>
