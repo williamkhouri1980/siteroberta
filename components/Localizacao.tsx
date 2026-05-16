@@ -1,5 +1,5 @@
 import { getEndereco, getConfig } from '@/lib/content'
-import { WHATSAPP_MESSAGE } from '@/lib/constants'
+import { WHATSAPP_MESSAGE, EMAIL, MAPS_EMBED_URL } from '@/lib/constants'
 
 export default async function Localizacao() {
   const [endereco, config] = await Promise.all([getEndereco(), getConfig()])
@@ -59,23 +59,21 @@ export default async function Localizacao() {
                 </svg>
                 Agendar pelo WhatsApp
               </a>
-              <a className="btn-ghost" href={`mailto:${config.email}`}>{config.email}</a>
+              <a className="btn-ghost" href={`mailto:${config.email || EMAIL}`}>{config.email || EMAIL}</a>
             </div>
           </div>
 
           <div className="loc-mapa">
-            {endereco.mapsEmbedUrl && (
-              <iframe
-                src={endereco.mapsEmbedUrl}
-                width="100%"
-                height="100%"
-                style={{ border: 0, minHeight: 280 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Localização da Dra. Roberta Pulcheri Ramos em São Paulo"
-              />
-            )}
+            <iframe
+              src={endereco.mapsEmbedUrl || MAPS_EMBED_URL}
+              width="100%"
+              height="400"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Localização do consultório — Vila Clementino, São Paulo"
+            />
           </div>
         </div>
       </div>

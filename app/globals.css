@@ -299,22 +299,13 @@ address { font-style: normal; }
   display: flex;
   flex-direction: column;
 }
-.hero-photo { height: auto; }
-.hero-photo-wrap {
-  position: relative;
+/* Mobile: foto em proporção natural — sem corte na altura */
+.hero-photo { width: 100%; height: auto; }
+.hero-img {
   width: 100%;
-  overflow: hidden;
-  background: var(--s1);
-  /* Mobile: proporção fixa para mostrar rosto + busto, não retrato inteiro */
-  aspect-ratio: 4 / 5;
-}
-.hero-photo-wrap img {
-  width: 100%;
-  height: 100%;
+  height: auto;
   display: block;
-  object-fit: cover;
-  object-position: center 12%; /* centraliza no rosto, não no topo */
-  filter: saturate(1.05) brightness(1.01) contrast(1.02);
+  filter: saturate(0.88) brightness(1.02);
 }
 .hero-text { padding: 44px 20px 56px; }
 .hero-eyebrow {
@@ -336,6 +327,14 @@ address { font-style: normal; }
   letter-spacing: -0.01em;
   color: var(--ink);
   margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+}
+.h1-secondary {
+  font-size: 0.65em;
+  color: var(--low);
+  font-weight: 400;
 }
 .hero-rule {
   width: 48px;
@@ -874,8 +873,7 @@ footer {
   .hero-text { padding: 56px 36px 72px; }
   .hero-h1 { font-size: clamp(38px, 7vw, 56px); }
   .hero-ctas { flex-direction: row; align-items: center; }
-  /* Tablet: proporção um pouco mais alta para mais contexto */
-  .hero-photo-wrap { aspect-ratio: 3 / 4; }
+  /* Tablet: foto fluida, sem corte */
 
   .qc-grid { display: grid; grid-template-columns: 1fr 1fr; }
   .cond-grid { display: grid; grid-template-columns: 1fr 1fr; }
@@ -900,7 +898,8 @@ footer {
 /* ── DESKTOP 1024px+ ── */
 @media (min-width: 1024px) {
   .nav { padding: 0 56px; height: 60px; }
-  .nav-toggle { display: none; }
+  .nav-toggle  { display: none; }
+  .nav-drawer  { display: none !important; } /* nunca aparecer no desktop */
   .nav-links {
     display: flex;
     gap: 28px;
@@ -934,22 +933,18 @@ footer {
     flex-direction: column;
     justify-content: center;
   }
+  /* Desktop: coluna da foto preenche min-height: 100vh */
   .hero-photo {
     flex: 44;
-    position: relative;  /* ancora o wrapper absoluto */
-    overflow: hidden;
-  }
-  .hero-photo-wrap {
-    position: absolute;
-    inset: 0;
-    aspect-ratio: unset; /* remove o aspect-ratio do mobile no desktop */
-  }
-  .hero-photo-wrap img {
-    width: 100%;
     height: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+  .hero-img {
+    width: 100% !important;   /* sobrescreve inline style do Next/Image */
+    height: 100% !important;
     object-fit: cover;
-    object-position: center 18%; /* rosto bem posicionado, menos fundo acima */
-    filter: saturate(1.05) brightness(1.01) contrast(1.02);
+    object-position: center top; /* corte só na base, nunca no rosto */
   }
 
   .section-inner { padding: 112px 56px; }

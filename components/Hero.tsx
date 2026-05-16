@@ -8,7 +8,7 @@ export default async function Hero() {
 
   return (
     <section id="hero" aria-label="Apresentação">
-      <div className="hero-photo hero-photo-wrap">
+      <div className="hero-photo">
         <Image
           src={hero.fotoUrl || '/roberta4-cropped.jpg'}
           alt="Dra. Roberta Pulcheri Ramos, pneumologista em São Paulo"
@@ -16,7 +16,8 @@ export default async function Hero() {
           height={3456}
           priority
           quality={85}
-          sizes="(max-width: 1024px) 100vw, 44vw"
+          sizes="(min-width: 1024px) 44vw, 100vw"
+          className="hero-img"
           unoptimized={Boolean(hero.fotoUrl)}
         />
       </div>
@@ -24,7 +25,16 @@ export default async function Hero() {
       <div className="hero-text">
         <p className="hero-eyebrow">{hero.eyebrow}</p>
 
-        <h1 className="hero-h1">{hero.h1}</h1>
+        <h1 className="hero-h1">
+          {hero.h1.includes('\n') ? (
+            <>
+              <span className="h1-primary">{hero.h1.split('\n')[0]}</span>
+              <span className="h1-secondary">{hero.h1.split('\n').slice(1).join(' ')}</span>
+            </>
+          ) : (
+            hero.h1
+          )}
+        </h1>
 
         <div className="hero-rule" />
 
