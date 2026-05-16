@@ -439,6 +439,12 @@ address { font-style: normal; }
   line-height: 1.12;
   color: var(--ink);
 }
+.sobre-signature {
+  margin-top: 48px;
+}
+@media (max-width: 1023px) {
+  .sobre-signature > div { --size: 160px !important; }
+}
 .sobre-body p {
   font-family: var(--sans);
   font-size: 15px;
@@ -999,9 +1005,11 @@ footer {
     gap: 72px;
     align-items: start;
   }
-  .sobre-heading {
+  .sobre-left {
     position: sticky;
     top: 80px;
+  }
+  .sobre-heading {
     font-size: clamp(32px, 3.5vw, 42px);
   }
 
