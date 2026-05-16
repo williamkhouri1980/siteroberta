@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import PulmiTree from './PulmiTree'
 
 export default function Nav({ waUrl }: { waUrl: string }) {
   const [scrolled, setScrolled] = useState(false)
@@ -25,6 +26,7 @@ export default function Nav({ waUrl }: { waUrl: string }) {
     <>
       <nav className={`nav${scrolled ? ' scrolled' : ''}`} id="main-nav">
         <Link className="brand" href="#hero">
+          <PulmiTree size={32} />
           <span className="brand-dra">Dra.</span>
           <span className="brand-name">Roberta Pulcheri Ramos</span>
         </Link>
