@@ -5,8 +5,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/keystatic/'],
+      disallow: ['/admin/', '/keystatic/', '/api/'],
     },
-    sitemap: 'https://www.robertaramos.med.br/sitemap.xml',
+    sitemap: 'https://www.robertapulcheri.com.br/sitemap.xml',
   }
 }
