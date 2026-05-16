@@ -94,13 +94,13 @@ address { font-style: normal; }
 
 .btn-ghost {
   font-family: var(--mono);
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 300;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--a1);
   text-decoration: none;
-  padding: 13px 0;
+  padding-bottom: 2px;
   border-bottom: 1px solid transparent;
   display: inline-block;
   transition: border-color 0.2s;
@@ -377,11 +377,12 @@ address { font-style: normal; }
 }
 .hero-crm {
   font-family: var(--mono);
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 300;
   letter-spacing: 0.14em;
   color: var(--low);
-  text-transform: uppercase;
+  margin-top: 28px;
+  line-height: 1.7;
 }
 
 /* ── QUANDO CONSULTAR ── */
@@ -406,6 +407,7 @@ address { font-style: normal; }
 .qc-card-num {
   font-family: var(--mono);
   font-size: 10px;
+  font-weight: 300;
   letter-spacing: 0.18em;
   color: var(--a1);
   margin-bottom: 14px;
@@ -804,12 +806,12 @@ footer {
   font-size: 9px;
   font-weight: 300;
   color: oklch(40% 0.008 255);
-  letter-spacing: 0.20em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 .footer-name {
   font-family: var(--serif);
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 400;
   color: oklch(78% 0.006 260);
   letter-spacing: 0.01em;
@@ -888,6 +890,15 @@ footer {
   .sobre-credentials { gap: 12px 0; flex-direction: column; }
 }
 
+/* ── MOBILE: touch targets (Apple HIG 44px) ── */
+@media (max-width: 1023px) {
+  .btn-primary  { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+  .btn-whatsapp { min-height: 44px; }
+  .btn-ghost    { min-height: 44px; display: inline-flex; align-items: center; }
+  .btn-inv      { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+  .btn-inv-ghost { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+}
+
 /* ── TABLET 640px+ ── */
 @media (min-width: 640px) {
   .nav { padding: 0 36px; }
@@ -947,21 +958,23 @@ footer {
 
   /* ═══ DESKTOP ≥ 1024px ═══ */
   #hero {
-    padding-top: 60px; /* nav offset desktop */
+    padding-top: 0; /* sem padding no container — texto cuida do clearance da nav */
     display: grid;
     grid-template-columns: 48fr 52fr;
     min-height: 100vh;
     align-items: stretch;
   }
 
-  /* order inverte a posição visual: foto vem primeiro no DOM mas
-     deve aparecer à direita; texto vem segundo mas deve aparecer à esquerda */
-  .hero-text  { order: 1; padding: 96px 64px; border-right: 1px solid var(--rule); }
-  .hero-photo { order: 2; height: 100%; overflow: hidden; position: relative; }
+  /* Texto à esquerda com 60px nav clearance + 96px design padding no topo */
+  .hero-text  { order: 1; padding: 156px 64px 96px; border-right: 1px solid var(--rule); }
+
+  /* Foto à direita — min-height garante 100vh; picture absoluto preenche
+     todo o container independente da resolução de height% no grid */
+  .hero-photo { order: 2; min-height: 100vh; overflow: hidden; position: relative; }
 
   .hero-photo picture {
-    display: block;
-    height: 100%;
+    position: absolute;
+    inset: 0;
   }
 
   .hero-img {
