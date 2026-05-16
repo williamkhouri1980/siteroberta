@@ -605,6 +605,49 @@
 }
 .adm-login-box .adm-btn-primary { width: 100%; margin-top: 0.25rem; padding: 0.75rem; }
 
+/* OTP step */
+.adm-login-otp-info {
+  display:       flex;
+  align-items:   flex-start;
+  gap:           12px;
+  background:    var(--adm-surface-2, #f0f1f3);
+  border-radius: var(--adm-radius);
+  padding:       14px 16px;
+  margin-bottom: 20px;
+}
+.adm-login-otp-icon {
+  font-size:   1.2rem;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top:  2px;
+}
+.adm-login-otp-info p {
+  font-size:   0.83rem;
+  color:       var(--adm-muted);
+  line-height: 1.55;
+  margin:      0;
+}
+.adm-input-otp {
+  font-size:     1.5rem;
+  letter-spacing: 0.28em;
+  text-align:    center;
+  font-weight:   600;
+}
+.adm-login-back {
+  display:    block;
+  width:      100%;
+  margin-top: 12px;
+  background: none;
+  border:     none;
+  color:      var(--adm-muted);
+  font-size:  0.8rem;
+  cursor:     pointer;
+  text-align: center;
+  padding:    8px;
+  transition: color 0.15s;
+}
+.adm-login-back:hover { color: var(--adm-text); }
+
 /* ── Upload image ────────────────────────────────────────── */
 .adm-upload-area {
   border:        1px dashed var(--adm-border);
