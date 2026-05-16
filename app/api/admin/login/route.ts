@@ -50,35 +50,38 @@ export async function POST(req: NextRequest) {
     .map(e => e.trim())
     .filter(Boolean)
 
-  try {
-    await resend.emails.send({
-      from:    'Admin Dra. Roberta <no-reply@robertapulcheri.com.br>',
-      to:      recipients,
-      subject: `Código de acesso ao painel: ${code}`,
-      html: `
-        <div style="font-family: monospace; max-width: 480px; margin: 0 auto; padding: 40px 32px; background: #f4f5f7;">
-          <p style="font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #8a8f99; margin: 0 0 32px;">
-            Painel Administrativo · Dra. Roberta Pulcheri Ramos
-          </p>
-          <p style="font-size: 14px; color: #1a1f2b; margin: 0 0 24px;">
-            Código de verificação solicitado:
-          </p>
-          <div style="background: #1a1f2b; border-radius: 8px; padding: 28px; text-align: center; margin-bottom: 24px;">
-            <span style="font-size: 36px; font-weight: 700; letter-spacing: 0.28em; color: #9AC4D8;">
-              ${code}
-            </span>
-          </div>
-          <p style="font-size: 12px; color: #8a8f99; line-height: 1.7; margin: 0;">
-            Válido por <strong>10 minutos</strong>. Use apenas uma vez.<br>
-            Se não foi você, ignore este email — a senha continua protegida.
-          </p>
+  const { error: emailError } = await resend.emails.send({
+    from:    'Admin Dra. Roberta <no-reply@robertapulcheri.com.br>',
+    to:      recipients,
+    subject: `Código de acesso ao painel: ${code}`,
+    html: `
+      <div style="font-family: monospace; max-width: 480px; margin: 0 auto; padding: 40px 32px; background: #f4f5f7;">
+        <p style="font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #8a8f99; margin: 0 0 32px;">
+          Painel Administrativo · Dra. Roberta Pulcheri Ramos
+        </p>
+        <p style="font-size: 14px; color: #1a1f2b; margin: 0 0 24px;">
+          Código de verificação solicitado:
+        </p>
+        <div style="background: #1a1f2b; border-radius: 8px; padding: 28px; text-align: center; margin-bottom: 24px;">
+          <span style="font-size: 36px; font-weight: 700; letter-spacing: 0.28em; color: #9AC4D8;">
+            ${code}
+          </span>
         </div>
-      `,
-    })
-  } catch (emailError) {
-    console.error('Email send error:', emailError)
+        <p style="font-size: 12px; color: #8a8f99; line-height: 1.7; margin: 0;">
+          Válido por <strong>10 minutos</strong>. Use apenas uma vez.<br>
+          Se não foi você, ignore este email — a senha continua protegida.
+        </p>
+      </div>
+    `,
+  })
+
+  if (emailError) {
+    console.error('Resend error:', JSON.stringify(emailError))
     await supabaseAdmin.from('admin_otp').delete().eq('id', otp.id)
-    return NextResponse.json({ error: 'Erro ao enviar email. Tente novamente.' }, { status: 500 })
+    return NextResponse.json(
+      { error: `Erro ao enviar email: ${emailError.message}` },
+      { status: 500 }
+    )
   }
 
   // Cookie temporário com ID do OTP (httpOnly — invisível ao JS)
