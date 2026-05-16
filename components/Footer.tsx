@@ -1,7 +1,11 @@
-import { EMAIL, LATTES_URL, ADDRESS, WHATSAPP_URL } from '@/lib/constants'
+import { getConfig } from '@/lib/content'
+import { EMAIL, LATTES_URL, ADDRESS, WHATSAPP_NUMBER, WHATSAPP_MESSAGE } from '@/lib/constants'
 
-export default function Footer() {
-  const year = new Date().getFullYear()
+export default async function Footer() {
+  const config   = await getConfig()
+  const waNumber = config.whatsapp || WHATSAPP_NUMBER
+  const waUrl    = `https://wa.me/${waNumber}?text=${WHATSAPP_MESSAGE}`
+  const year     = new Date().getFullYear()
 
   return (
     <footer>
@@ -30,7 +34,7 @@ export default function Footer() {
             <span className="footer-col-label">Contato</span>
             <ul className="footer-links">
               <li>
-                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                <a href={waUrl} target="_blank" rel="noopener noreferrer">
                   WhatsApp
                 </a>
               </li>

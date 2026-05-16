@@ -2,9 +2,8 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { WHATSAPP_URL } from '@/lib/constants'
 
-export default function Nav() {
+export default function Nav({ waUrl }: { waUrl: string }) {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen]         = useState(false)
 
@@ -37,7 +36,7 @@ export default function Nav() {
           <li><a href="#faq">FAQ</a></li>
           <li>
             <a
-              href={WHATSAPP_URL}
+              href={waUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="nav-cta"
@@ -65,7 +64,7 @@ export default function Nav() {
         <a href="#faq"              onClick={closeMenu}>FAQ</a>
         <a href="#localizacao"      onClick={closeMenu}>Localização</a>
         <a
-          href={WHATSAPP_URL}
+          href={waUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="nav-drawer-cta"

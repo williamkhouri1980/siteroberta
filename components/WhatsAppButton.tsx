@@ -1,11 +1,7 @@
-'use client'
-
-import { WHATSAPP_URL } from '@/lib/constants'
-
-export default function WhatsAppButton() {
+export default function WhatsAppButton({ waUrl }: { waUrl: string }) {
   return (
     <a
-      href={WHATSAPP_URL}
+      href={waUrl}
       target="_blank"
       rel="noopener noreferrer"
       className="whatsapp-float"

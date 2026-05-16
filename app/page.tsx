@@ -1,3 +1,5 @@
+import { getConfig } from '@/lib/content'
+import { WHATSAPP_NUMBER, WHATSAPP_MESSAGE } from '@/lib/constants'
 import Nav             from '@/components/Nav'
 import Hero            from '@/components/Hero'
 import QuandoConsultar from '@/components/QuandoConsultar'
@@ -11,10 +13,14 @@ import Agendar         from '@/components/Agendar'
 import Footer          from '@/components/Footer'
 import WhatsAppButton  from '@/components/WhatsAppButton'
 
-export default function Home() {
+export default async function Home() {
+  const config = await getConfig()
+  const waNumber = config.whatsapp || WHATSAPP_NUMBER
+  const waUrl    = `https://wa.me/${waNumber}?text=${WHATSAPP_MESSAGE}`
+
   return (
     <>
-      <Nav />
+      <Nav waUrl={waUrl} />
       <main>
         <Hero />
         <QuandoConsultar />
@@ -27,7 +33,7 @@ export default function Home() {
         <Agendar />
       </main>
       <Footer />
-      <WhatsAppButton />
+      <WhatsAppButton waUrl={waUrl} />
     </>
   )
 }
