@@ -15,9 +15,11 @@ export default async function Sobre() {
             ))}
 
             <div className="sobre-credentials">
-              {sobre.credenciais.map((c) => (
-                <span key={c} className="cred-item">{c}</span>
-              ))}
+              {sobre.credenciais
+                .filter(c => !c.toUpperCase().includes('CRM') && !c.toUpperCase().includes('RQE'))
+                .map((c) => (
+                  <span key={c} className="cred-item">{c}</span>
+                ))}
               {sobre.lattesUrl && (
                 <a
                   className="cred-item cred-link"
