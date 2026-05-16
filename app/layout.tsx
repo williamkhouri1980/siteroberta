@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Cormorant_Garamond, DM_Sans, DM_Mono } from 'next/font/google'
 import './globals.css'
 import { SITE_URL, ADDRESS, EMAIL, WHATSAPP_NUMBER } from '@/lib/constants'
@@ -86,6 +86,21 @@ export const metadata: Metadata = {
   verification: {
     google: 'GOOGLE_SEARCH_CONSOLE_TOKEN',
   },
+  icons: {
+    icon: [
+      { url: '/favicon.svg',       type: 'image/svg+xml' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
+  manifest: '/site.webmanifest',
+}
+
+export const viewport: Viewport = {
+  themeColor: '#1A1F2B',
 }
 
 const jsonLd = {
