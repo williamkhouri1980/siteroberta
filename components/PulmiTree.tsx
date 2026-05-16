@@ -30,7 +30,7 @@ export default function PulmiTree({ size = 180 }: PulmiTreeProps) {
         </defs>
 
         {/* Edges */}
-        <g stroke="var(--pulmi-edge)" strokeWidth="0.5" strokeOpacity="0.4" fill="none">
+        <g stroke="var(--pulmi-edge)" strokeWidth="1.2" strokeOpacity="0.7" fill="none" strokeLinecap="round">
           <line x1="50" y1="86" x2="50" y2="72"/>
           <line x1="50" y1="72" x2="34" y2="57"/>
           <line x1="50" y1="72" x2="66" y2="57"/>
