@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { getHero, getConfig } from '@/lib/content'
 import { WHATSAPP_MESSAGE } from '@/lib/constants'
 
@@ -6,20 +5,23 @@ export default async function Hero() {
   const [hero, config] = await Promise.all([getHero(), getConfig()])
   const waUrl = `https://wa.me/${config.whatsapp}?text=${WHATSAPP_MESSAGE}`
 
+  const desktopSrc = hero.fotoDesktopUrl || '/roberta-desktop.jpg'
+  const mobileSrc  = hero.fotoMobileUrl  || '/roberta-mobile.jpg'
+
   return (
     <section id="hero" aria-label="Apresentação">
       <div className="hero-photo">
-        <Image
-          src={hero.fotoUrl || '/roberta4-cropped.jpg'}
-          alt="Dra. Roberta Pulcheri Ramos, pneumologista em São Paulo"
-          width={2177}
-          height={3456}
-          priority
-          quality={85}
-          sizes="(min-width: 1024px) 44vw, 100vw"
-          className="hero-img"
-          unoptimized={Boolean(hero.fotoUrl)}
-        />
+        {/* Art direction: landscape for desktop, portrait for mobile */}
+        <picture>
+          <source media="(min-width: 1024px)" srcSet={desktopSrc} />
+          <img
+            src={mobileSrc}
+            alt="Dra. Roberta Pulcheri Ramos, pneumologista em São Paulo"
+            className="hero-img"
+            loading="eager"
+            fetchPriority="high"
+          />
+        </picture>
       </div>
 
       <div className="hero-text">

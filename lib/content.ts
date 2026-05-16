@@ -70,22 +70,24 @@ export async function getEndereco(): Promise<EnderecoData> {
 
 // ── Hero ──────────────────────────────────────────────────────────────────────
 export type HeroData = {
-  eyebrow:       string
-  h1:            string
-  corpo:         string
-  ctaPrimario:   string
-  ctaSecundario: string
-  fotoUrl?:      string
+  eyebrow:        string
+  h1:             string
+  corpo:          string
+  ctaPrimario:    string
+  ctaSecundario:  string
+  fotoDesktopUrl: string
+  fotoMobileUrl:  string
 }
 
 export async function getHero(): Promise<HeroData> {
   return getSection<HeroData>('hero', {
-    eyebrow:       'Pneumologia · São Paulo · Telemedicina Global',
-    h1:            'Pneumologista em São Paulo especializada em doenças respiratórias',
-    corpo:         'Diagnóstico preciso para tosse crônica, falta de ar, asma e hipertensão pulmonar.',
-    ctaPrimario:   'Agendar consulta',
-    ctaSecundario: 'Como funciona',
-    fotoUrl:       '',
+    eyebrow:        'Pneumologia · São Paulo · Telemedicina Global',
+    h1:             'Pneumologista em São Paulo especializada em doenças respiratórias',
+    corpo:          'Diagnóstico preciso para tosse crônica, falta de ar, asma e hipertensão pulmonar.',
+    ctaPrimario:    'Agendar consulta',
+    ctaSecundario:  'Como funciona',
+    fotoDesktopUrl: '',
+    fotoMobileUrl:  '',
   })
 }
 
