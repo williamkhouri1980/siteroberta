@@ -8,12 +8,19 @@ export default async function Hero() {
   const desktopSrc = hero.fotoDesktopUrl || '/roberta-desktop.jpg'
   const mobileSrc  = hero.fotoMobileUrl  || '/roberta-mobile.jpg'
 
+  // Split H1 on newline: first line = primary, rest = secondary
+  const h1Parts = hero.h1.split('\n')
+  const h1Primary   = h1Parts[0]
+  const h1Secondary = h1Parts.slice(1).join(' ')
+
   return (
     <section id="hero" aria-label="Apresentação">
       <div className="hero-photo">
-        {/* Art direction: landscape for desktop, portrait for mobile */}
         <picture>
-          <source media="(min-width: 1024px)" srcSet={desktopSrc} />
+          <source
+            media="(min-width: 1024px)"
+            srcSet={desktopSrc}
+          />
           <img
             src={mobileSrc}
             alt="Dra. Roberta Pulcheri Ramos, pneumologista em São Paulo"
@@ -28,13 +35,9 @@ export default async function Hero() {
         <p className="hero-eyebrow">{hero.eyebrow}</p>
 
         <h1 className="hero-h1">
-          {hero.h1.includes('\n') ? (
-            <>
-              <span className="h1-primary">{hero.h1.split('\n')[0]}</span>
-              <span className="h1-secondary">{hero.h1.split('\n').slice(1).join(' ')}</span>
-            </>
-          ) : (
-            hero.h1
+          <span className="hero-h1-primary">{h1Primary}</span>
+          {h1Secondary && (
+            <span className="hero-h1-secondary">{h1Secondary}</span>
           )}
         </h1>
 
