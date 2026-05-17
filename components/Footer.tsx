@@ -2,10 +2,12 @@ import { getConfig } from '@/lib/content'
 import { EMAIL, LATTES_URL, ADDRESS, WHATSAPP_NUMBER, WHATSAPP_MESSAGE } from '@/lib/constants'
 
 export default async function Footer() {
-  const config   = await getConfig()
-  const waNumber = config.whatsapp || WHATSAPP_NUMBER
-  const waUrl    = `https://wa.me/${waNumber}?text=${WHATSAPP_MESSAGE}`
-  const year     = new Date().getFullYear()
+  const config    = await getConfig()
+  const waNumber  = config.whatsapp  || WHATSAPP_NUMBER
+  const waUrl     = `https://wa.me/${waNumber}?text=${WHATSAPP_MESSAGE}`
+  const email     = config.email     || EMAIL
+  const lattesUrl = config.lattesUrl || LATTES_URL
+  const year      = new Date().getFullYear()
 
   return (
     <footer>
@@ -38,9 +40,9 @@ export default async function Footer() {
                   WhatsApp
                 </a>
               </li>
-              <li><a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
+              <li><a href={`mailto:${email}`}>{email}</a></li>
               <li>
-                <a href={LATTES_URL} target="_blank" rel="noopener noreferrer">
+                <a href={lattesUrl} target="_blank" rel="noopener noreferrer">
                   Currículo Lattes
                 </a>
               </li>
