@@ -59,7 +59,9 @@ export default async function Localizacao() {
                 </svg>
                 Agendar pelo WhatsApp
               </a>
-              <a className="btn-ghost" href={`mailto:${config.email || EMAIL}`}>{config.email || EMAIL}</a>
+              {config.email?.trim() && (
+                <a className="btn-ghost" href={`mailto:${config.email}`}>{config.email}</a>
+              )}
             </div>
           </div>
 

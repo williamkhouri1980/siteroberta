@@ -22,9 +22,11 @@ export default async function Agendar() {
           </svg>
           Agendar pelo WhatsApp
         </a>
-        <a className="btn-inv-ghost" href={`mailto:${config.email}`}>
-          Enviar e-mail &rarr;
-        </a>
+        {config.email?.trim() && (
+          <a className="btn-inv-ghost" href={`mailto:${config.email}`}>
+            Enviar e-mail &rarr;
+          </a>
+        )}
       </div>
     </section>
   )

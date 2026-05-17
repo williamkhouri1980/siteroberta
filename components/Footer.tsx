@@ -5,7 +5,7 @@ export default async function Footer() {
   const config    = await getConfig()
   const waNumber  = config.whatsapp  || WHATSAPP_NUMBER
   const waUrl     = `https://wa.me/${waNumber}?text=${WHATSAPP_MESSAGE}`
-  const email     = config.email     || EMAIL
+  const email     = config.email?.trim() || ''
   const lattesUrl = config.lattesUrl || LATTES_URL
   const year      = new Date().getFullYear()
 
@@ -40,7 +40,7 @@ export default async function Footer() {
                   WhatsApp
                 </a>
               </li>
-              <li><a href={`mailto:${email}`}>{email}</a></li>
+              {email && <li><a href={`mailto:${email}`}>{email}</a></li>}
               <li>
                 <a href={lattesUrl} target="_blank" rel="noopener noreferrer">
                   Currículo Lattes
